@@ -10,7 +10,7 @@ struct Node
     Node* right;
 };
 
-void leftView(struct Node *root);
+vector<int> leftView(struct Node *root);
 
 // Utility function to create a new Tree Node
 Node* newNode(int val)
@@ -100,10 +100,10 @@ int main() {
         string s;
         getline(cin,s);
         Node* root = buildTree(s);
-        leftView(root);
-        /*for(int x : vec)
+        vector<int> vec = leftView(root);
+        for(int x : vec)
         cout<<x<<" ";
-        cout << endl;*/
+        cout << endl;
     }
     return 0;
 }
@@ -127,19 +127,23 @@ struct Node
  */
 
 //Function to return a list containing elements of left view of the binary tree.
-vector<int> res;
-void leftView(Node *root)
-{
-   //res.push_back(root->data);
-   cout<<root->data;
+void recCallView(Node *root, vector<int> *res){
+   res->push_back(root->data);
    if(root->left)
-      leftView(root->left);
+      recCallView(root->left,res);
    else if(root->right){
-      leftView(root->right);
+      recCallView(root->right,res);
    }
    else{
        return;
    }
     
 }
+vector<int> leftView(Node *root)
+{
+    vector<int> res;
+    recCallView(root,&res);
+    return res;
+}
+
 
