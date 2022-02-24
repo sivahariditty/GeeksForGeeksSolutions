@@ -9,12 +9,17 @@ using namespace std;
 class Solution{
   public:
     int minJumps(int arr[], int n){
-        int jumps = 0,i = 0;
+	int jumps = 0,i = 0,previ = 0;
         while(i<n){
             jumps++;
+            previ = i;
             i=i+arr[i];
         }
         // Your code here
+        if(previ == n-1)
+           return jumps-1;
+        else
+           return jumps;
     }
 };
 
