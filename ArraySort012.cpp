@@ -18,14 +18,13 @@ void sort012(int a[], int n)
         else
            count2++;
     }
-    printf("%d %d %d\n", count0,count1,count2);
     for(int j=0;j<count0;j++){
        a[j] = 0;
     }
-    for(int k=count0;k<count1;k++){
+    for(int k=count0;k<(count0 + count1);k++){
        a[k] = 1;
     }
-    for(int l=count1;l<count2;l++){
+    for(int l=(count0 + count1);l<n;l++){
        a[l] = 2;
     }
 }
