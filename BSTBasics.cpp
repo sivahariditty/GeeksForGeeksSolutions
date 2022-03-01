@@ -64,6 +64,42 @@ void posOrder(Node *root){
    }
 }
 
+Node *findMinNode(Node *root){
+   Node *curr = root;
+   while(curr && (curr->left != NULL)){
+      curr = curr->left;
+   }
+   return curr;
+}
+Node *delNode(Node *root, int val){
+   if(root == NULL)
+      return root;
+   if(val < root->data){
+      root->left = delNode(root->left,val);
+   }
+   else if(val > root->data){
+      root->right = delNode(root->right,val);
+   }
+   else{
+      if(root->left == NULL && root->right == NULL){
+         return NULL;
+      }
+      else if(root->left == NULL){
+         struct Node *tmp = root->right;
+	 free(root);
+	 return tmp;
+      }
+      else if(root->right == NULL){
+         struct Node *tmp = root->left;
+	 free(root);
+	 return tmp;
+      }
+      struct Node *tmp= findMinNode(root->right);
+      root->data = tmp->data;
+      root->right = delNode(root->right,tmp->data);
+   }
+}
+
 int main(){
    int n;
    cin>>n;
@@ -73,5 +109,12 @@ int main(){
    }
    Node *rtr = buildTree(arr,n);
    inOrder(rtr);
+   int delval;
+   while(1){
+   cin>>delval;
+   rtr = delNode(rtr,delval);
+   inOrder(rtr);
+   cout<<"\n";
+   }
    return 0;
 }
